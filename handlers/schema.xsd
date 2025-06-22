@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The following XSD describes the following specification:
+Root element: animetitles.
+    Element animetitles has MANY child elements of anime.
+        Each element anime has EXACTLY ONE attribute aid. Value of attribute aid is integer.
+        Each element anime has AT LEAST ONE child element of title.
+            Each element title has EXACTLY ONE attribute type. Value of attribute type is string. It has EXACTLY ONE of possible values: main, official, short, syn, kana, card.
+            Each element title has EXACTLY ONE attribute lang in namespace of xml. Value of attribute lang is string. It has EXACTLY ONE of possible values: (see table and links at the bottom).
+            Each element title has text node, which value is one anime title. Expect many different languages and alphabets.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+               schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+    <xs:element name="animetitles">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="anime" type="AnimeType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="AnimeType">
+        <xs:sequence>
+            <xs:element name="title" type="TitleType" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="aid" type="xs:positiveInteger" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="TitleType">
+        <!--
+          Use 'simpleContent' because the element contains a text node and attributes.
+          We extend 'xs:string' to allow any text for the anime title.
+        -->
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="type" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="main"/>
+                            <xs:enumeration value="official"/>
+                            <xs:enumeration value="short"/>
+                            <xs:enumeration value="syn"/>
+                            <xs:enumeration value="kana"/>
+                            <xs:enumeration value="card"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <!--
+                  This will validate against standard language codes (e.g., 'en', 'fr', 'x-jat').
+                -->
+                <xs:attribute ref="xml:lang" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+</xs:schema>

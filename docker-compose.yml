@@ -1,0 +1,26 @@
+services:
+  server:
+    image: michiru-server:latest
+    ports:
+      - "127.0.0.1:8080:8080"
+    env_file:
+      - ".env"
+    volumes:
+      - ./web/dist:/web
+    restart: unless-stopped
+    depends_on:
+      - meilisearch
+  importer:
+    image: michiru-importer:latest
+    env_file:
+      - ".env"
+    depends_on:
+      - meilisearch
+  meilisearch:
+    image: getmeili/meilisearch:v1.14
+    env_file:
+      - ".env"
+    volumes:
+      - ./meili_data:/meili_data
+    restart: unless-stopped
+    command: ["meilisearch", "--no-analytics"]
