@@ -1,17 +1,17 @@
 services:
   server:
-    image: michiru-server:latest
+    image: ghcr.io/chaaaaun/michiru-server:latest
     ports:
       - "127.0.0.1:8080:8080"
     env_file:
       - ".env"
     volumes:
-      - ./web/dist:/web
+      - ./web/dist:/static
     restart: unless-stopped
     depends_on:
       - meilisearch
   importer:
-    image: michiru-importer:latest
+    image: ghcr.io/chaaaaun/michiru-importer:latest
     env_file:
       - ".env"
     depends_on:
