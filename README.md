@@ -100,8 +100,7 @@ The importer requires the `libxml2` package to be installed before building.
 ## API Reference
 
 `/search`
-> Search for AniDB AID using fuzzy multilingual title search
- 
+
 **Query Parameters**
 
 | Parameter | Type    | Required            | Description                                            |
@@ -112,7 +111,6 @@ The importer requires the `libxml2` package to be installed before building.
 
 <details>
 <summary>Example response for <code>/search?query=test&limit=1</code></summary>
-
 ```json
 {
     "payload": [
@@ -178,7 +176,6 @@ The importer requires the `libxml2` package to be installed before building.
     }
 }
 ```
-
 </details>
 
 `/metadata`
@@ -186,7 +183,6 @@ The importer requires the `libxml2` package to be installed before building.
 
 <details>
 <summary>Example response for <code>/metadata</code></summary>
-
 ```json
 {
     "id": "titles",
@@ -196,5 +192,4 @@ The importer requires the `libxml2` package to be installed before building.
     "dumpTitles": 95683
 }
 ```
-
 </details>
