@@ -6,7 +6,7 @@ services:
     env_file:
       - ".env"
     volumes:
-      - ./web/dist:/static
+      - ./static:/static
     restart: unless-stopped
     depends_on:
       - meilisearch
